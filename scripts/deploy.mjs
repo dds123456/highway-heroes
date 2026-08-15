@@ -31,7 +31,7 @@ function run(command, args, options = {}) {
     maxBuffer: 20 * 1024 * 1024,
     env: { ...process.env, ...(options.env ?? {}) },
   });
-  if (result.status !== 0) {
+  if (result.status !== 0 && !options.allowFail) {
     const err = redact(`${result.stdout ?? ''}\n${result.stderr ?? ''}`).trim();
     throw new Error(err || `${command} failed with status ${result.status}`);
   }
@@ -98,7 +98,7 @@ if (existsRes.status === 404) {
 
 const cleanRemote = `https://github.com/${username}/highway-heroes.git`;
 const pushRemote = `https://${username}:${encodeURIComponent(process.env.GITHUB_TOKEN)}@github.com/${username}/highway-heroes.git`;
-run('git', ['remote', 'remove', 'origin'], { stdio: 'ignore' });
+run('git', ['remote', 'remove', 'origin'], { stdio: 'ignore', allowFail: true });
 run('git', ['remote', 'add', 'origin', cleanRemote]);
 console.log('Pushing to GitHub...');
 try {
