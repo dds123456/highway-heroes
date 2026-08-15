@@ -28,6 +28,7 @@ function run(command, args, options = {}) {
     cwd: root,
     encoding: 'utf8',
     stdio: options.stdio ?? 'pipe',
+    shell: options.shell ?? false,
     maxBuffer: 20 * 1024 * 1024,
     env: { ...process.env, ...(options.env ?? {}) },
   });
@@ -110,7 +111,7 @@ console.log(`GitHub: ${cleanRemote}`);
 
 if (!process.env.DEPLOY_GITHUB_ONLY) {
   console.log('Deploying to Vercel...');
-  const vercel = run(process.platform === 'win32' ? 'npx.cmd' : 'npx', [
+  const vercel = run('npx', [
     'vercel',
     '--prod',
     '--yes',
@@ -118,7 +119,7 @@ if (!process.env.DEPLOY_GITHUB_ONLY) {
     'highway-heroes',
     '--token',
     process.env.VERCEL_TOKEN,
-  ], { env: { ...process.env, VERCEL_TOKEN: process.env.VERCEL_TOKEN } });
+  ], { env: { ...process.env, VERCEL_TOKEN: process.env.VERCEL_TOKEN }, shell: process.platform === 'win32' });
   const vercelOutput = redact(`${vercel.stdout}\n${vercel.stderr}`);
   const urlMatch = vercelOutput.match(/https:\/\/[a-z0-9-]+\.vercel\.app/);
   console.log(vercelOutput.trim());
