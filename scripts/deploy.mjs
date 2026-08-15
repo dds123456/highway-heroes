@@ -114,6 +114,8 @@ if (!process.env.DEPLOY_GITHUB_ONLY) {
     'vercel',
     '--prod',
     '--yes',
+    '--name',
+    'highway-heroes',
     '--token',
     process.env.VERCEL_TOKEN,
   ], { env: { ...process.env, VERCEL_TOKEN: process.env.VERCEL_TOKEN } });

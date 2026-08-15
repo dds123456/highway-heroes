@@ -60,10 +60,10 @@ git push -u origin HEAD
 
 echo [5/5] Deploying to Vercel...
 if defined VERCEL_TOKEN (
-  npx vercel --prod --yes --token "%VERCEL_TOKEN%"
+  npx vercel --prod --yes --name highway-heroes --token "%VERCEL_TOKEN%"
 ) else (
   npx vercel login
-  npx vercel --prod --yes
+  npx vercel --prod --yes --name highway-heroes
 )
 
 echo.

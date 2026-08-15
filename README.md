@@ -2,6 +2,9 @@
 
 卡通渲染开放式高速公路摩托竞速游戏。技术栈固定为 Three.js r168 + Vite + TypeScript + ES Modules，全部几何体、纹理、音频均由代码在运行时程序化生成，不依赖任何外部素材文件。
 
+在线地址：https://highway-heroes-peach.vercel.app
+GitHub 仓库：https://github.com/dds123456/highway-heroes
+
 ## 启动
 
 ```bash
