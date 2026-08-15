@@ -1,0 +1,22 @@
+{
+  "name": "highway-heroes",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Cartoon-rendered open highway motorcycle racing game built with Three.js, Vite and TypeScript.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json && vite build",
+    "preview": "vite preview",
+    "screenshot": "node scripts/screenshot.mjs"
+  },
+  "dependencies": {
+    "three": "0.168.0"
+  },
+  "devDependencies": {
+    "@types/three": "0.168.0",
+    "playwright": "^1.49.0",
+    "typescript": "~5.7.2",
+    "vite": "^6.0.7"
+  }
+}
