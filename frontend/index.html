@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#211e2e" />
+    <meta name="description" content="HIGHWAY HEROES 公路嘉年华：摩托竞速、圈速挑战、漂移与角色定制。" />
+    <meta name="app-mode" content="offline" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="极速公路" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HIGHWAY HEROES 极速公路" />
+    <meta property="og:description" content="漂移、道具与高速摩托竞速。竞速 / 计时赛 / 漂移 / 沙盒四种模式。" />
+    <meta property="og:image" content="/social/og-cover.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="HIGHWAY HEROES 极速公路" />
+    <meta name="twitter:description" content="漂移、道具与高速摩托竞速。" />
+
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png" />
+    <link rel="apple-touch-icon" href="icons/icon-192.png" />
+
+    <title>HIGHWAY HEROES / PACIFIC EDITION</title>
+  </head>
+  <body>
+    <div id="app">
+      <div id="game-root" aria-label="极速公路摩托竞速"></div>
+      <div id="weather-overlay"></div>
+      <div id="weather-flash"></div>
+      <div id="hud-root" aria-live="polite"></div>
+      <div id="loading">
+        <div class="loading-mark">HIGHWAY HEROES</div>
+        <div class="loading-bar"><span></span></div>
+        <div class="loading-status">正在加载资源…</div>
+        <button class="btn loading-retry" hidden>重新加载</button>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

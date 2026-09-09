@@ -1,0 +1,48 @@
+/* Original road-festival presentation; interactive signals stay distinct from scenery. */
+:root{--red:#e22c80;--teal:#50e9f3;--yellow:#ffc460;--panel:#122b40;}
+.festival-menu .hud-pause,.festival-menu .hud-help{display:none;}
+.screen-mode,.screen-track,.screen-garage{background:linear-gradient(125deg,#70adbe 0%,#325c78 49%,#112b42 100%);}
+.screen-mode::before,.screen-track::before{background:linear-gradient(155deg,transparent 55%,#e22c8016 55%,transparent 75%);}
+.screen-mode{padding:22px 0;}
+.mode-card-panel{max-width:min(94vw,940px);padding:26px 34px;gap:13px;text-align:left;align-items:stretch;border-top:4px solid #e22c80;background:#122b40f5;}
+.mode-card-panel .game-title{font-size:clamp(34px,4.8vw,60px);margin:0;line-height:1.1;}
+.mode-card-panel .game-sub{font-size:11px;color:#98e2ed;letter-spacing:.12em;}
+.festival-intro{margin:0 0 5px;color:#c8dce6;font-size:14px;}
+.mode-grid{gap:10px;}
+.mode-grid .mode-card{border-radius:3px;padding:16px 20px;gap:7px;background:#203d53;border:1px solid #536e80;justify-items:start;text-align:left;}
+.mode-grid .mode-card.active{background:#3e2545;border-color:#f156a1;box-shadow:inset 4px 0 #f156a1;}
+.mode-grid .mode-card .mode-name{font-size:22px;color:#fff;}
+.mode-grid .mode-card .mode-tagline{color:#c9dce5;}
+.mode-grid .mode-card .mode-meta{color:#a8eaf0;}
+.festival-menu .btn-primary{background:#df277d;border-color:#f364a7;color:#fff;min-height:48px;}
+.festival-menu .btn-primary:hover{background:#bc1c67;}
+.festival-menu .btn:focus-visible,.festival-records summary:focus-visible{outline:3px solid #8ff7ff;outline-offset:3px;}
+.festival-menu .select-row{gap:10px;}
+.festival-records{width:100%;border-top:1px solid #526e80;padding-top:9px;color:#c8dce6;font-size:13px;}
+.festival-records summary{cursor:pointer;padding:9px 0;min-height:36px;}
+.festival-records[open]{display:block;}
+.festival-records .record-table,.festival-records .leaderboard{margin-top:10px;}
+.select-side{background:#122b40ed;padding:26px;border-radius:4px;}
+.select-side .game-title{font-size:38px;}
+.select-side .game-sub{color:#a8eaf0;}
+.stat-fill{background:#50e9f3;}
+.screen-track .screen-card{width:min(940px,94vw);max-width:940px;background:#122b40f5;border-top:4px solid #e22c80;}
+.screen-track .select-row:has(.festival-route){display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;}
+.screen-track .select-row:has(.festival-route)>.select-row-label{grid-column:1/-1;}
+.festival-route{min-height:152px;white-space:normal;font-size:22px;text-align:left;padding:22px 15px;border-top:5px solid #71d8be;background:#294a57;}
+.festival-route[data-route=canyon]{border-top-color:#fbb170;background:#544337;}
+.festival-route[data-route=snowfield]{border-top-color:#b3d8fa;background:#344b62;}
+.festival-route.active{outline:3px solid #f156a1;outline-offset:2px;background:#3e2545;color:white;}
+.route-description{display:block;font-size:12px;font-weight:400;margin-top:28px;line-height:1.7;color:#edf3f6;}
+.hud-panel{border-left-color:#50e9f3;background:#10263be8;}
+.hud-right{grid-column:3;grid-row:1;justify-self:end;align-self:start;}
+.hud-minimap{margin-top:54px;width:144px;height:144px;background:#10263bd9;}
+.hud-bottom{grid-row:3;}
+.hud-rank{color:#83edf4;font-size:18px;}
+.hud-speed{background:#10263be8;border-bottom:3px solid #f156a1;}
+.hud-boost-fill,.hud-boost-fill.ready{background:#50e9f3;}
+.hud-item{background:#10263bf0;border:1px solid #8aa6b5;min-height:44px;display:flex;align-items:center;justify-content:center;padding:10px 16px;letter-spacing:.03em;}
+@media(max-width:760px){.mode-card-panel{padding:20px;gap:12px;}.mode-grid .mode-card{padding:14px;}.mode-grid .mode-card .mode-name{font-size:17px;}.mode-grid .mode-card .mode-tagline{font-size:12px;}.select-side{padding:20px;}.festival-route{min-height:110px;font-size:18px;}.route-description{margin-top:15px;}.screen-track .select-row:has(.festival-route){grid-template-columns:1fr;}.hud-item{font-size:11px;max-width:52vw;padding:8px;}.mode-card-panel .game-sub{line-height:1.8;}}
+@media(max-width:430px){.mode-grid{grid-template-columns:1fr;}.mode-grid .mode-card{gap:5px;}.mode-grid .mode-card .mode-meta{font-size:11px;}.screen-mode{padding:12px 0;}}
+@media(prefers-reduced-motion:reduce){.btn,.hit-feedback,.race-hint{animation:none;transition:none;}}
+@media(max-width:760px){.hud-minimap{width:100px;height:100px;margin-top:48px;}.hud-bottom{flex-wrap:wrap;gap:8px;}.hud-item{order:3;flex-basis:100%;max-width:100%;min-height:36px;}.hud-boost{max-width:50%;}}

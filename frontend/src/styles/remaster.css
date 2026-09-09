@@ -1,0 +1,87 @@
+/* Pacific Edition: instrument-panel hierarchy, warm reflector accents, no comic outlines.
+   Tokens: asphalt #182126, graphite #293339, chalk #ecebe4, zinc #9dacae, reflector #c9ac6c. */
+:root { --ink:#182126;--ink-soft:#354149;--paper:#ecebe4;--red:#c9ac6c;--orange:#b89760;--yellow:#d9c48f;--blue:#8faab8;--teal:#9abbb8;--panel:rgba(20,29,34,.84);--panel-solid:#263238;--font:"Bahnschrift","Segoe UI","Microsoft YaHei",sans-serif; }
+body {color:#e8e9e3;}
+.screen-mode {align-items:flex-start;padding:24px 0;}
+.screen-mode .mode-card-panel {margin:auto 0;}
+.screen-mode,.screen-track,.screen-garage,.screen-face,.screen-select {
+ background:radial-gradient(ellipse at 25% 30%,#647279 0%,#35444c 40%,#1b272e 100%);
+}
+.screen-mode::before,.screen-track::before {
+ content:"";position:absolute;inset:0;pointer-events:none;
+ background:repeating-linear-gradient(118deg,transparent 0,transparent 22%,rgba(232,231,219,.025) 22.1%,transparent 22.3%);
+}
+.game-title,.select-bike-name,.face-title,.finish-title,.pause-title,.loading-mark {
+ font-family:"Bahnschrift Condensed","Impact","Microsoft YaHei",sans-serif;
+ color:#edeee8;text-shadow:none;letter-spacing:.045em;font-weight:700;
+}
+.game-title {font-size:clamp(30px,3.3vw,46px);}
+.game-sub,.mode-card-panel .game-sub,.select-side .game-sub {color:#bec9cd;text-shadow:none;font-weight:500;letter-spacing:.09em;font-size:13px;white-space:normal;}
+.screen-card,.mode-card-panel,.face-panel {
+ color:#e8e9e3;background:rgba(26,37,43,.94);border:1px solid #73808766;border-radius:5px;
+ box-shadow:0 18px 60px #10182044;backdrop-filter:blur(10px);
+}
+.mode-card-panel {max-width:min(94vw,780px);padding:32px;}
+.mode-grid .mode-card,.mode-card,.record-table,.leaderboard {
+ background:#26343b;border:1px solid #76848b55;border-radius:3px;box-shadow:none;backdrop-filter:none;
+}
+.mode-grid .mode-card {justify-items:start;text-align:left;padding:22px 20px;gap:10px;border-left:3px solid #6c7b81;}
+.mode-grid .mode-card.active,.mode-card.active {
+ background:#435054;border-color:#c9ac6c;color:#f4f3e9;box-shadow:inset 3px 0 #c9ac6c;
+}
+.mode-grid .mode-card .mode-name {font-size:21px;font-weight:600;text-shadow:none;letter-spacing:.03em;}
+.mode-grid .mode-card .mode-tagline {color:#c1c9ca;font-size:13px;text-shadow:none;font-weight:400;}
+.mode-grid .mode-card .mode-meta,.mode-card.active .mode-meta {color:#d4bd87;text-shadow:none;font-weight:500;}
+.btn,.glass,.btn-chip,.hud-pause,.hud-help {
+ color:#e5e8e7;background:#34434b;border:1px solid #7b8a9070;border-radius:3px;
+ box-shadow:none;text-shadow:none;font-weight:600;backdrop-filter:none;
+}
+.btn:hover,.glass:hover {background:#45565f;transform:none;box-shadow:none;}
+.btn:focus-visible,.glass:focus-visible,.mode-card:focus-visible {outline:2px solid #ead49c;outline-offset:3px;transform:none;}
+.btn-primary,.glass.btn-primary,.btn-chip.active,.btn-start {
+ color:#172329;background:#c9ac6c;border:1px solid #dbc691;box-shadow:none;text-shadow:none;animation:none;transform:none;
+}
+.btn-primary:hover,.glass.btn-primary:hover {background:#dfc68f;}
+.select-layout {gap:36px;max-width:1180px;width:94%;grid-template-columns:minmax(300px,1.15fr) minmax(280px,1fr);}
+.select-stage,.face-stage {background:radial-gradient(ellipse at 50% 38%,#909b9f,#4b5b64 68%,#303e47) !important;border:1px solid #8c999e66;border-radius:4px;box-shadow:0 20px 55px #10182033;}
+.turntable-holder {width:100%;height:min(52vh,410px);}
+.select-stats {width:100%;max-width:420px;}
+.stat-label {color:#d6dcda;text-shadow:none;font-weight:500;}
+.stat-bar {height:5px;border:0;border-radius:0;background:#28383f;}
+.stat-fill {background:#c9ac6c;}
+.select-bike-name {font-size:25px;letter-spacing:.04em;}
+.colorway-swatch {box-shadow:none;border-width:2px;}
+.colorway-swatch.active {transform:scale(1.12);border-color:#e7d4a4;outline:1px solid #e7d4a4;outline-offset:3px;}
+.dot {width:16px;height:3px;border:0;border-radius:0;background:#899396;}
+.dot.active {background:#d6bb7d;transform:none;}
+.controls,.help-list,.volume-label,.steer-readout {color:#b6c1c5;font-weight:400;}
+.hud-panel,.hud-boost,.hud-item,.hud-speed,.hud-tt {
+ background:rgba(20,29,34,.8);border:1px solid #9aa9ae55;box-shadow:none;border-radius:3px;color:#e8eae4;
+}
+.hud-panel {border-left:3px solid #c9ac6c;padding:12px 16px;}
+.hud-stat {font-weight:500;font-size:13px;letter-spacing:.03em;}
+.hud-lap,.hud-time,.hud-checkpoint {color:#e0e5e1;}
+.hud-rank {color:#d7bc7e;}
+.hud-minimap {background:rgba(38,48,52,.8);border:1px solid #9aa9ae55;border-radius:3px;box-shadow:none;}
+.hud-speed {font-family:"Bahnschrift Condensed","Impact",sans-serif;font-size:36px;font-weight:400;letter-spacing:.03em;padding:10px 20px;}
+.hud-boost-label {font-size:12px;letter-spacing:.1em;font-weight:500;}
+.hud-boost-track {height:7px;border:0;border-radius:0;background:#526065;}
+.hud-boost-fill,.hud-boost-fill.ready {background:#c5a562;}
+.hud-item {font-size:13px;font-weight:500;}
+.screen-countdown .count-number,.screen-countdown .count-number.go {font-family:"Bahnschrift Condensed","Impact",sans-serif;font-weight:400;color:#eee9d8;text-shadow:0 3px 16px #18212699;animation:none;}
+.loading-bar {height:3px;border:0;border-radius:0;background:#5a666c;}
+.loading-bar span {background:#c9ac6c;}
+.record-title,.leaderboard-title,.record-key,.record-track-name,.record-value,.leaderboard-name,.leaderboard-time {color:#d7dddc;text-shadow:none;}
+.race-hint,.hit-feedback {border-width:1px;border-radius:3px;box-shadow:none;text-shadow:none;}
+.tbtn {border:1px solid #a0aeb666;border-radius:5px;background:#24343bd9;color:#e6e7de;box-shadow:none;}
+@media(max-width:760px) {
+ .select-layout {grid-template-columns:1fr;gap:18px;padding:22px 0;}
+ .turntable-holder {height:300px;max-height:43vh;width:100%;}
+ .select-stage {padding:12px;}
+ .screen-card {padding:22px;max-width:94vw;}
+ .mode-grid .mode-card {padding:15px;}
+ .mode-grid .mode-card .mode-name {font-size:18px;}
+ .game-title {font-size:30px;}
+ .hud-panel {padding:8px;min-width:120px;}
+ .hud-speed {font-size:26px;}
+}

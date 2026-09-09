@@ -1,0 +1,28 @@
+{
+  "name": "highway-heroes",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "description": "Pacific Edition: physically based browser motorcycle racing, original street vehicle and environment art, with the v2.0 racing modes preserved.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json && vite build",
+    "build:portable": "npm run build && node scripts/build-pacific-portable.mjs",
+    "preview": "vite preview",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check": "npm run typecheck && npm run test && npm run build",
+    "assets": "node scripts/generate-assets.mjs",
+    "package:web": "npm run build:portable"
+  },
+  "dependencies": {
+    "three": "0.168.0"
+  },
+  "devDependencies": {
+    "@types/three": "0.168.0",
+    "typescript": "~5.7.2",
+    "vite": "^6.0.7",
+    "vitest": "^2.1.8"
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "edition": "Pacific 人物自然化 V2",
+  "date": "2026-09-09",
+  "pathBase": "project-root",
+  "distribution": "Public single-player edition: enterprise integration, backend and private platform configuration excluded.",
+  "scope": "Grouped runtime art/code assets and retained source references; not a file-by-file license or dependency inventory.",
+  "sourceArchive": "highway-heroes-main-v2.0.zip",
+  "policy": "Original procedural Three.js meshes and seeded canvas surfaces; no GTA V extracted assets.",
+  "assets": [
+    {
+      "id": "motorcycles",
+      "count": 3,
+      "type": "procedural-mesh",
+      "source": "frontend/src/entities/DetailedMotorcycle.ts",
+      "materials": [
+        "PBR paint",
+        "rubber",
+        "steel",
+        "leather",
+        "glass"
+      ],
+      "notes": "New generic cafe, scrambler and sport designs. Original CAD GLBs remain in public/models only as source references."
+    },
+    {
+      "id": "rider",
+      "type": "original-parametric-articulated-character",
+      "source": "frontend/src/entities/CharacterBody.ts",
+      "sources": ["frontend/src/entities/CharacterGeometry.ts", "frontend/src/entities/CharacterAsset.ts", "frontend/src/entities/RiderIK.ts"],
+      "referenceOnly": ["frontend/public/assets/characters/rider-lightweight-morph.glb"],
+      "notes": "Male/female jaw and cheek contours, continuous female jacket shaping, eyelids and lips, five-finger hands, 17 compatible control joints and riding IK. Old GLB is a reference, not the runtime base. Not AAA photorealistic or a fully skinned body."
+    },
+    {
+      "id": "maps",
+      "count": 3,
+      "type": "procedural-mesh-kit",
+      "source": "frontend/src/render/Environment.ts",
+      "notes": "Coastal urban, desert and alpine variations with infrastructure and graded shoulders."
+    },
+    {
+      "id": "surfaces",
+      "type": "seeded-canvas",
+      "source": "frontend/src/render/Art.ts",
+      "notes": "Asphalt, concrete, leather, soil and typographic road signs generated locally at runtime."
+    },
+    {
+      "id": "props",
+      "count": 4,
+      "type": "procedural-mesh",
+      "source": "frontend/src/render/PropModels.ts",
+      "notes": "Nitro cylinder, shield plate, missile and mine. Missile has a pointed long body, four fins and nozzle; the projectile reuses this geometry."
+    },
+    {
+      "id": "wraps-and-audio",
+      "type": "retained-user-assets",
+      "source": "frontend/public",
+      "sources": ["frontend/public/textures", "frontend/public/music", "frontend/public/audio"],
+      "licenseStatus": "retained-from-user-archive-not-independently-verified",
+      "notes": "Three retained wrap PNGs, three music tracks and engine/weather samples. Retention does not establish redistribution rights. No media downloaded in this documentation update."
+    },
+    {
+      "id": "character-studio",
+      "type": "original-code",
+      "source": "frontend/src/ui/CharacterEditor.ts",
+      "sources": ["frontend/src/ui/FaceScene.ts", "frontend/src/settings/CharacterStore.ts", "frontend/src/settings/FaceStore.ts"],
+      "notes": "Shared male/female profile; 4 face bases, 12 face and 10 body sliders; draft/save/cancel, undo, compare, full-body/face views and subtle idle motion."
+    },
+    {
+      "id": "female-hair",
+      "type": "procedural-mesh",
+      "source": "frontend/src/entities/CharacterGeometry.ts",
+      "notes": "Continuous bob hair curtain and low ponytail with tie; not strand hair. Hidden with the head under helmet preview."
+    },
+    {
+      "id": "cyber-helmet",
+      "type": "procedural-mesh",
+      "source": "frontend/src/entities/CyberHelmet.ts",
+      "notes": "YX-01 matte faceted shell, cyan visor strip, chin armor and red rear light; shared by male and female riders."
+    },
+    {
+      "id": "visibility-and-road-props",
+      "type": "procedural-mesh-and-canvas-effects",
+      "source": "frontend/src/render/VisibilityFX.ts",
+      "sources": ["frontend/src/render/RoadItems.ts", "frontend/src/items/itemSprites.ts"],
+      "notes": "Local halos, rings, narrow exhaust, flowing boost chevrons and trigger lights; no added fullscreen Bloom. Default road layout has 12 boost pads and 14 obstacle groups."
+    },
+    {
+      "id": "gradual-weather",
+      "type": "procedural-particles-and-timing",
+      "source": "frontend/src/render/Weather.ts",
+      "sources": ["frontend/src/render/WeatherCycle.ts", "frontend/src/render/Particles.ts"],
+      "notes": "World-space thin rain lines, random gradual non-snow showers and retained alpine snow; not wet-road tire physics."
+    },
+    {
+      "id": "interface",
+      "type": "original-dom-css",
+      "source": "frontend/src/styles/festival.css",
+      "sources": ["frontend/src/styles/remaster.css", "frontend/src/styles/character.css"],
+      "notes": "Mode/garage/route flow, navy/magenta/cyan HUD, neutral amber character studio."
+    }
+  ],
+  "exclusions": [
+    "No Blender source authored",
+    "No new exported GLB files",
+    "No public deployment",
+    "No GTA V asset reuse"
+  ]
+}
