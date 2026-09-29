@@ -1,0 +1,224 @@
+/*
+ * DewuClaw SSO 用户菜单样式
+ * 命名空间：.dcu-  — 不会与任何项目已有样式冲突
+ * 使用方式：<link rel="stylesheet" href="./user-menu.css">
+ *           或在 JS/React 中 import './user-menu.css'
+ */
+
+/* ── 触发按钮（头像 + 显示名） ─────────────────────────────────────────── */
+
+.dcu-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px 4px 4px;
+  border: none;
+  background: transparent;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-size: 14px;
+  color: inherit;
+  line-height: 1;
+}
+
+.dcu-trigger:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.dcu-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #e0e0e0;
+  background: #e0e0e0;
+  flex-shrink: 0;
+  display: block;
+}
+
+/* 无头像时的字母头像占位 */
+.dcu-avatar-fallback {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #1677ff;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.dcu-trigger-name {
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── 下拉面板 ──────────────────────────────────────────────────────────── */
+
+.dcu-menu-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.dcu-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 220px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+  padding: 0;
+  z-index: 9999;
+  opacity: 0;
+  transform: translateY(-6px) scale(0.97);
+  transition: opacity 0.15s, transform 0.15s;
+  pointer-events: none;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.dcu-dropdown.dcu-open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* ── 面板内：用户信息卡片 ─────────────────────────────────────────────── */
+
+.dcu-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.dcu-profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #e0e0e0;
+  flex-shrink: 0;
+}
+
+.dcu-profile-avatar-fallback {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #1677ff;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.dcu-profile-info {
+  min-width: 0;
+}
+
+.dcu-profile-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 2px;
+}
+
+.dcu-profile-username {
+  font-size: 12px;
+  color: #999;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 面板内：用户邮箱 */
+.dcu-profile-email {
+  font-size: 12px;
+  color: #b0b0b0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 2px;
+}
+
+/* ── 面板内：菜单项 ──────────────────────────────────────────────────── */
+
+.dcu-menu-items {
+  padding: 6px 0;
+}
+
+.dcu-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 16px;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s;
+  box-sizing: border-box;
+}
+
+.dcu-menu-item:hover {
+  background: #f5f5f5;
+}
+
+.dcu-menu-item.dcu-danger {
+  color: #ff4d4f;
+}
+
+.dcu-menu-item.dcu-danger:hover {
+  background: #fff1f0;
+}
+
+.dcu-menu-divider {
+  height: 1px;
+  background: #f0f0f0;
+  margin: 4px 0;
+}
+
+/* ── 加载 / 错误态 ───────────────────────────────────────────────────── */
+
+.dcu-loading {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #999;
+  padding: 4px 8px;
+}
+
+.dcu-loading-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ccc;
+  animation: dcu-pulse 1.2s ease-in-out infinite;
+}
+
+.dcu-loading-dot:nth-child(2) { animation-delay: 0.2s; }
+.dcu-loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dcu-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.85); }
+  50%       { opacity: 1;   transform: scale(1);    }
+}

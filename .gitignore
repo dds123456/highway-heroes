@@ -1,0 +1,19 @@
+node_modules/
+dist/
+.vercel/
+.env.local
+*.local
+*.log
+.DS_Store
+Thumbs.db
+
+.vercel
+
+# 后端本地数据与前端构建产物
+backend/data/
+frontend/dist/
+frontend/node_modules/
+
+# 打包部署临时文件
+deploy_pkg.zip
+*.zip

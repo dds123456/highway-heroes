@@ -1,0 +1,8 @@
+type: flask-react
+flask_dir: backend
+react_dir: frontend
+port: 5000
+python_entry: app:app
+api_prefix: /api
+# build_command: npm run build
+# node_version: "20"
