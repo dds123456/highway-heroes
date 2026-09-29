@@ -1,9 +1,9 @@
 # 极速公路 HIGHWAY HEROES
 
-卡通渲染开放式高速公路摩托竞速游戏。技术栈为 **Three.js r168 + Vite + TypeScript**，在浏览器中运行，支持键盘、Xbox 标准手柄与移动端触屏。
+卡通渲染开放式高速公路摩托竞速游戏。前端为 **Three.js r168 + Vite + TypeScript**，纯浏览器运行，支持键盘、Xbox 标准手柄与移动端触屏；后端为 **Flask + SQLite**，提供 SSO 鉴权与竞速排行榜。
 
-在线地址：https://highway-heroes-peach.vercel.app
-GitHub 仓库：https://github.com/dds123456/highway-heroes
+- 在线地址：https://highway-heroes-peach.vercel.app
+- GitHub 仓库：https://github.com/dds123456/highway-heroes
 
 ## 游戏模式
 
@@ -14,18 +14,55 @@ GitHub 仓库：https://github.com/dds123456/highway-heroes
 | 漂移赛 Drift | 90 秒内累积漂移得分 | 计时 · 连击计分 |
 | 沙盒 Sandbox | 自由驾驶练习 | 无计时 · 无胜负 |
 
-成绩与个人最佳保存在浏览器 `localStorage`，可在同一设备持续刷新；计时赛会自动记录最佳圈的幽灵车，下一局可对照回放。
+成绩与个人最佳保存在浏览器 `localStorage`，可在同一设备持续刷新；计时赛会自动记录最佳圈的幽灵车，下一局可对照回放。跨设备的总用时排行榜由后端提供（见下文）。
 
-## 启动
+## 仓库结构
+
+v2.0 起改为前后端分离布局：
+
+```text
+backend/                 Flask 后端（SSO 鉴权 + 排行榜）
+  app.py                 路由：/api/health、/api/dcu-sso/me、/api/leaderboard、/api/leaderboard/submit
+  db_config.py           统一数据目录（容器内 /data，本地 backend/data）
+  sso_helpers.py         DewuClaw SSO accessToken → 用户信息
+  requirements.txt       Flask 3.0.3 / gunicorn / requests
+frontend/                Vite + TypeScript 前端
+  src/                   游戏源码（见下方模块划分）
+  public/                模型、音乐、图标、PWA manifest、Service Worker
+  scripts/               离线构建与资源生成脚本
+  tests/                 Vitest 单元测试
+  start_game.bat         一键启动开发服务器
+  deploy_vercel.bat      一键发布到 Vercel
+  vercel.json            SPA 回退与静态资源缓存策略
+dclaw.yaml               DewuClaw 一体化部署配置（flask-react，后端 5000 端口，API 前缀 /api）
+```
+
+## 启动前端
 
 ```bash
+cd frontend
 npm install
 npm run dev
 ```
 
-浏览器打开 Vite 输出的本地地址即可游玩，无需额外环境变量或全局工具。
+浏览器打开 Vite 输出的本地地址即可游玩，无需额外环境变量或全局工具。也可以直接双击 `frontend/start_game.bat`：脚本会自动安装依赖、选择空闲端口、启动开发服务器并打开浏览器。
 
-也可以直接双击 `start_game.bat`：脚本会自动安装依赖、选择空闲端口、启动开发服务器并打开浏览器。
+## 启动后端（可选）
+
+排行榜与 SSO 相关接口由后端提供；前端在接口不可用时自动降级为空榜，不影响单机游玩。
+
+```bash
+cd backend
+pip install -r requirements.txt
+python app.py          # 默认监听 0.0.0.0:5000
+```
+
+| 接口 | 方法 | 鉴权 | 说明 |
+|---|---|---|---|
+| `/api/health` | GET | 否 | 健康检查，返回 `{status:100,data:{ok:true}}` |
+| `/api/leaderboard` | GET | 否 | 竞速赛总用时前十（按用户取个人最佳） |
+| `/api/leaderboard/submit` | POST | 是 | 提交成绩，仅在该用户刷新个人最佳时更新 |
+| `/api/dcu-sso/me` | GET | 是 | 由请求头或 Cookie 中的 `accessToken` 换用户信息 |
 
 ## 操作
 
@@ -44,21 +81,33 @@ npm run dev
 
 ## 构建与部署
 
+前端命令均在 `frontend/` 目录下执行：
+
 ```bash
 npm run typecheck   # TypeScript 类型检查
 npm run test        # Vitest 单元测试
-npm run build       # 类型检查 + 生产构建（输出 dist/）
+npm run build       # 类型检查 + 生产构建（输出 frontend/dist/）
 npm run preview     # 本地预览生产构建
 npm run check       # typecheck + test + build 全量校验
 npm run assets      # 重新生成 PWA 图标与分享封面占位图
 ```
 
-部署到 Vercel：双击 `deploy_vercel.bat`（首次登录/关联项目，之后一键发布）。`vercel.json` 已配置 SPA 回退与静态资源缓存策略。
+### Vercel
 
-## 项目结构
+仓库已与 Vercel 项目 `highway-heroes` 关联，推送到 `main` 分支即自动部署。
+
+> **关键配置：项目的 Root Directory 必须设为 `frontend`**，否则构建会在仓库根目录执行并因找不到 `package.json` 报 `npm run build exited with 254`。该设置位于 Vercel 控制台 → Project Settings → Root Directory。
+
+也可在本机双击 `frontend/deploy_vercel.bat` 手动发布。注意：Vercel 为无状态 Serverless，文件系统只读（仅 `/tmp` 可写且不跨实例共享），**后端不随 Vercel 部署**。
+
+### DewuClaw / 自建服务器
+
+`dclaw.yaml` 描述了一体化部署（前端静态资源 + 后端 `/api` 同域），数据目录在容器内挂载到 `/data`，可让 SQLite 跨次部署保留。
+
+## 前端模块划分
 
 ```text
-src/
+frontend/src/
   core/        Game 主循环（固定 60Hz 逻辑步）、GameMode 模式、事件总线、输入、常量
   settings/    SettingsStore 统一设置存取与校验
   records/     RecordStore 本地成绩（个人最佳 / 历史）
@@ -71,10 +120,8 @@ src/
   items/       导弹 / 护盾 / 加速 / 地雷道具系统
   ui/          HUD、模式选择、暂停/结算/帮助/设置屏幕
   audio/       Web Audio 程序化引擎声、风噪、漂移与音效
+  net.ts       排行榜 / 后端 API 客户端（接口失败时静默降级为空榜）
   types/       全局调试接口类型
-scripts/       离线构建脚本、部署脚本、资源占位图生成
-tests/         Vitest 单元测试
-public/        模型、音乐、PWA manifest、Service Worker、图标
 ```
 
 ## 渲染管线
@@ -93,9 +140,10 @@ public/        模型、音乐、PWA manifest、Service Worker、图标
 
 | 类型 | 路径 | 说明 |
 |---|---|---|
-| 摩托车模型 | `public/models/*.glb` | 三辆摩托（Cafe-Race / Yamaha / RS200） |
-| 背景音乐 | `public/music/*.mp3` | 三张地图主题曲 |
-| 环境音频 | `public/audio/`、引擎/天气采样 | 引擎声、风雨声等 |
+| 摩托车模型 | `frontend/public/models/*.glb` | 三辆摩托（Cafe-Race / Yamaha / RS200） |
+| 背景音乐 | `frontend/public/music/*.mp3` | 三张地图主题曲 |
+| 环境音频 | `frontend/public/audio/` | 引擎声、风雨声等 |
+| 骑手模型 | `frontend/public/assets/characters/*.glb` | 轻量骑手（含 morph 目标） |
 
 车辆名称使用了现实品牌/车型名，公开发布与商业化前需确认商标与模型素材的授权，必要时改为虚构品牌。完整的来源 / 许可 / 循环点清单建议补充到 `design/assets.csv`。
 
@@ -108,9 +156,9 @@ public/        模型、音乐、PWA manifest、Service Worker、图标
 
 ## 已知问题
 
-- 分享封面（`public/social/og-cover.png`）为程序化生成的占位图，尚未使用真实游戏截图。
-- PWA 图标同样为占位图。
-- 排行榜为纯本地存储，尚未接入 Supabase 在线榜单（Roadmap）。
+- 线上（Vercel）只部署前端，未部署后端，因此在线排行榜为空榜；本地或一体化部署后端后可正常使用。
+- 本地 `npm run dev` 时 Vite 未配置 `/api` 代理，请求落在 5173 端口，排行榜同样为空榜；联调需自行配置代理或改用一体化部署。
+- 分享封面（`frontend/public/social/og-cover.png`）与 PWA 图标均为程序化生成的占位图，尚未使用真实游戏截图。
 
 ## 路线图
 
@@ -121,7 +169,8 @@ public/        模型、音乐、PWA manifest、Service Worker、图标
 - [x] 手柄完整按键映射（Y 氮气 / X 道具 / Start 暂停 / B 返回）
 - [x] 固定 60 Hz 逻辑步
 - [x] 本地成绩存储
-- [ ] Planned：在线排行榜（Supabase）
+- [x] 在线排行榜后端（Flask + SQLite，含 SSO 鉴权）
+- [ ] Planned：排行榜数据迁移到云端托管数据库（Vercel Postgres / KV / Upstash），解决 Serverless 不可持久化问题
 - [ ] Planned：挑战链接分享与每日挑战
 - [ ] Planned：离线模型压缩 / Draco / Meshopt 与 LOD
 - [ ] Planned：实时多人房间
